@@ -1,0 +1,45 @@
+<div class="container mb-4">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+        <th scope="col">Status</th>
+        <th scope="col">Entrance Fee</th>
+        <th scope="col">Max Participants</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let event of aEvents">
+        <th scope="row">{{ event.title }}</th>
+        <td>{{ event.start.toLocaleString("en-GB", {
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+        }) }}</td>
+        <td>{{ event.end.toLocaleString("en-GB", {
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+        }) }}</td>
+        <td>{{ event.status }}</td>
+        <td>€ {{ event.participationFee }}</td>
+        <td>{{ event.maxParticipants }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <button
+      class="btn btn-info float-right"
+    (click)="addRandomAEvent()">Add event</button>
+  </div>
+</div>

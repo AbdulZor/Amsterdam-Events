@@ -6,8 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  dateTime: Date;
+  dateTimeFormatted: string;
 
-  constructor() { }
+  constructor() {
+    setInterval(() => {
+      this.dateTime = new Date();
+      this.dateTimeFormatted = this.dateTime.toLocaleString();
+      }, 1000);
+  }
+
 
   ngOnInit() {
   }
