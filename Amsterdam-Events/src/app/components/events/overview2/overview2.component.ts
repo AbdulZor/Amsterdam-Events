@@ -9,6 +9,7 @@ import {AEvent} from "../../../models/a-event";
 export class Overview2Component implements OnInit {
 
   aEvent: AEvent;
+  title: string;
   aEvents: AEvent[];
   j: number;
   activeRow: boolean;
@@ -18,6 +19,7 @@ export class Overview2Component implements OnInit {
 
   ngOnInit() {
     this.activeRow = false;
+    this.title = '';
     this.j = 0;
     this.aEvents = [];
     for (let i = 0; i < 9; i++) {
@@ -40,9 +42,8 @@ export class Overview2Component implements OnInit {
     this.aEvent = getEvent;
   }
 
-  setActive(event: HTMLElement, index: number){
-    console.log(this.activeRow);
-    console.log(event);
-    return this.activeRow = !this.activeRow;
+  setActive(event: AEvent){
+    this.title = event.title;
+    this.activeRow = !this.activeRow;
   }
 }

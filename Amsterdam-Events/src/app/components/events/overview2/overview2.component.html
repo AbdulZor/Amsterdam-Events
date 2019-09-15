@@ -9,10 +9,11 @@
         </thead>
         <tbody>
         <!--        // (click)="setActive($event)"-->
-<!--        [ngClass]="activeRow ? 'bg-dark' : 'bg-light'"-->
+        <!--        [ngClass]="activeRow ? 'bg-dark' : 'bg-light'"-->
         <tr *ngFor="let event of aEvents; let i = index">
-          <th *ngIf="event.title != null" (click)="getEvent(event); setActive($event.target, i) ">{{ event.title }}</th>
-<!--              setActive($event.target)-->
+          <th *ngIf="event.title != null" (click)="getEvent(event); setActive(event)" [ngClass]="event.title == title ? 'bg-info' : 'bg-light'">
+            {{ event.title }}</th>
+          <!--              setActive($event.target)-->
         </tr>
         </tbody>
       </table>
