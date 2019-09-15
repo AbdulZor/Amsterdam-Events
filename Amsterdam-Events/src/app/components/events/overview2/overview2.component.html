@@ -1,0 +1,26 @@
+<div class="container-fluid mb-4">
+  <div class="row">
+    <div class="col-lg-4 col-sm-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--        // (click)="setActive($event)"-->
+<!--        [ngClass]="activeRow ? 'bg-dark' : 'bg-light'"-->
+        <tr *ngFor="let event of aEvents; let i = index">
+          <th *ngIf="event.title != null" (click)="getEvent(event); setActive($event.target, i) ">{{ event.title }}</th>
+<!--              setActive($event.target)-->
+        </tr>
+        </tbody>
+      </table>
+      <button
+        class="btn btn-info float-right"
+        (click)="addRandomAEvent()">Add event
+      </button>
+    </div>
+    <app-detail2 *ngIf="aEvent != null" class="col-lg-7 col-sm-12 mt-2" [Aevent]="aEvent"></app-detail2>
+  </div>
+</div>

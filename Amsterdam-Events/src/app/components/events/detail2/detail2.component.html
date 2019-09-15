@@ -1,0 +1,50 @@
+<div class="col-12" *ngIf="Aevent != null">
+  <table  class="table">
+    <thead>
+    <tr>
+      <th scope="col" colspan="2">Selected event details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Title:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="titleInput" [value]="Aevent.title"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Description:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="description" [value]="Aevent.description"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Status:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="status" [value]="Aevent.status"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Is Ticketed:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="isTicketed" [value]="Aevent.IsTicketed"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Participation Fee:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="participationFee" [value]="Aevent.participationFee"></th>
+      <p></p>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Max. Participation:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="maxParticipation" [value]="Aevent.maxParticipants"></th>
+    </tr>
+    </tbody>
+  </table>
+  <button
+    class="btn btn-success float-right"
+    (click)="saveEvent()">Save
+  </button>
+  <button
+    class="btn btn-danger float-right mr-1"
+    (click)="deleteEvent()">Delete
+  </button>
+</div>

@@ -1,15 +1,15 @@
 export class AEvent {
   title: string;
-  status: AEventStatus;
+  status: string;
   start: Date;
-  IsTicketed: Boolean;
+  IsTicketed: boolean;
   end: Date;
   participationFee: string;
   description: string;
   maxParticipants: string;
 
 
-  constructor(title: string, status: AEventStatus, start: Date, IsTicketed: Boolean, end: Date, participationFee: string, description: string, maxParticipants: string) {
+  constructor(title: string, status: string, start: Date, IsTicketed: boolean, end: Date, participationFee: string, description: string, maxParticipants: string) {
     this.title = title;
     this.status = status;
     this.start = start;
