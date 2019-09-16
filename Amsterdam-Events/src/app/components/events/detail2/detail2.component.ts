@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AEvent} from "../../../models/a-event";
+import {AEvent, AEventStatus} from "../../../models/a-event";
 
 @Component({
   selector: 'app-detail2',
@@ -16,8 +16,6 @@ export class Detail2Component implements OnInit {
   }
 
   ngOnInit() {
-    console.log("The editedEvent = " + this.editedEvent.title);
-    console.log(this.editedEvent.title);
   }
 
   deleteEvent(){

@@ -9,7 +9,8 @@
         </thead>
         <tbody>
         <tr *ngFor="let event of aEvents; let i = index">
-          <th *ngIf="event != null" (click)="getEvent(event); setActive(i)" [ngClass]="i == activeIndex ? 'bg-info' : 'bg-light'">
+          <th *ngIf="event != null" (click)="setActive(i)"
+              [ngClass]="i == activeIndex ? 'bg-info' : 'bg-light'">
             {{ event.title }}</th>
         </tr>
         </tbody>
@@ -18,6 +19,9 @@
         class="btn btn-info float-right"
         (click)="addRandomAEvent()">Add event
       </button>
+    </div>
+    <div class="col-lg-7 col-sm-12 mt-2" *ngIf="!selectedEvent">
+      <p class="text-center mt-3 badge-info">Select event to edit</p>
     </div>
     <app-detail2 *ngIf="activeIndex != null" class="col-lg-7 col-sm-12 mt-2"
                  [editedEvent]="selectedEvent" (onSaveEvent)="onEventSave($event)"
