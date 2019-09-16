@@ -4,12 +4,12 @@ export class AEvent {
   start: Date;
   IsTicketed: boolean;
   end: Date;
-  participationFee: string;
+  participationFee: number;
   description: string;
   maxParticipants: string;
 
 
-  constructor(title: string, status: AEventStatus, start: Date, IsTicketed: boolean, end: Date, participationFee: string, description: string, maxParticipants: string) {
+  constructor(title: string, status: AEventStatus, start: Date, IsTicketed: boolean, end: Date, participationFee: number, description: string, maxParticipants: string) {
     this.title = title;
     this.status = status;
     this.start = start;
@@ -32,7 +32,7 @@ export class AEvent {
   }
 
   static copyTrue(event: AEvent) :AEvent{
-    return Object.assign(new AEvent(null, null, null, null, null, null, null, null), event);
+    return Object.assign({}, event);
   }
 
 }

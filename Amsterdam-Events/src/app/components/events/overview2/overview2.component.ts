@@ -26,10 +26,16 @@ export class Overview2Component implements OnInit {
     }
   }
 
+  private addRandomAEventClick() {
+    this.addRandomAEvent();
+    this.activeIndex = (this.aEvents.length - 1);
+    this.selectedEvent = AEvent.copyTrue(this.aEvents[this.activeIndex]);
+  }
+
   addRandomAEvent() {
     this.aEvents.push(new AEvent("The fantastic event-" + ++this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
       false, this.randomDate(new Date(2019, 10, 2), new Date()),
-      (Math.random() * 15).toFixed(2), "NO DESCPRIPTION", (Math.random() * 100).toFixed()));
+      +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", (Math.random() * 100).toFixed()));
   }
 
   randomDate(start, end) {
@@ -44,7 +50,6 @@ export class Overview2Component implements OnInit {
   onEventDeleted($event){
     this.aEvents[this.activeIndex] = $event;
     this.selectedEvent = $event;
-    console.log(this.selectedEvent);
   }
 
   onEventSave($event){
