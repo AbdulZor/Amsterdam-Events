@@ -31,6 +31,9 @@ export class AEvent {
     return AEventStatus.CANCELED;
   }
 
+  static copyTrue(event: AEvent) :AEvent{
+    return Object.assign(new AEvent(null, null, null, null, null, null, null, null), event);
+  }
 
 }
 

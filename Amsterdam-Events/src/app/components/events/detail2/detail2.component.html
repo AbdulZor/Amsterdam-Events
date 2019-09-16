@@ -1,4 +1,4 @@
-<div class="col-12" *ngIf="Aevent != null">
+<div class="col-12" *ngIf="editedEvent != null">
   <table  class="table">
     <thead>
     <tr>
@@ -9,33 +9,33 @@
     <tr>
       <th scope="row" [ngClass]="'border'">Title:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="titleInput" [value]="Aevent.title"></th>
+        <input [(ngModel)]="editedEvent.title"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Description:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="description" [value]="Aevent.description"></th>
+        <input [(ngModel)]="editedEvent.description"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Status:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="status" [value]="Aevent.status"></th>
+        <input [(ngModel)]="editedEvent.status"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Is Ticketed:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="isTicketed" [value]="Aevent.IsTicketed"></th>
+        <input [(ngModel)]="editedEvent.IsTicketed"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Participation Fee:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="participationFee" [value]="Aevent.participationFee"></th>
+        <input [(ngModel)]="editedEvent.participationFee"></th>
       <p></p>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Max. Participation:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="maxParticipation" [value]="Aevent.maxParticipants"></th>
+        <input [(ngModel)]="editedEvent.maxParticipants"></th>
     </tr>
     </tbody>
   </table>

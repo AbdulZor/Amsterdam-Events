@@ -9,17 +9,16 @@ import {AEvent} from "../../../models/a-event";
 export class Overview2Component implements OnInit {
 
   aEvent: AEvent;
-  title: string;
+  activeIndex: number;
+  selectedEvent: AEvent;
   aEvents: AEvent[];
   j: number;
-  activeRow: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.activeRow = false;
-    this.title = '';
+    this.selectedEvent = null;
     this.j = 0;
     this.aEvents = [];
     for (let i = 0; i < 9; i++) {
@@ -40,10 +39,22 @@ export class Overview2Component implements OnInit {
 
   getEvent(getEvent: AEvent){
     this.aEvent = getEvent;
+
   }
 
-  setActive(event: AEvent){
-    this.title = event.title;
-    this.activeRow = !this.activeRow;
+  setActive(index: number){
+    this.activeIndex = index;
+    this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
+  }
+
+  onEventDeleted($event){
+    this.aEvents[this.activeIndex] = $event;
+    this.selectedEvent = $event;
+    console.log(this.selectedEvent);
+  }
+
+  onEventSave($event){
+    this.aEvents[this.activeIndex] = $event;
+    this.selectedEvent = $event;
   }
 }

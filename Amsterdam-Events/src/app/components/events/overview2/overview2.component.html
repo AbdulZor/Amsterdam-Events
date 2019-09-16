@@ -8,12 +8,9 @@
         </tr>
         </thead>
         <tbody>
-        <!--        // (click)="setActive($event)"-->
-        <!--        [ngClass]="activeRow ? 'bg-dark' : 'bg-light'"-->
         <tr *ngFor="let event of aEvents; let i = index">
-          <th *ngIf="event.title != null" (click)="getEvent(event); setActive(event)" [ngClass]="event.title == title ? 'bg-info' : 'bg-light'">
+          <th *ngIf="event != null" (click)="getEvent(event); setActive(i)" [ngClass]="i == activeIndex ? 'bg-info' : 'bg-light'">
             {{ event.title }}</th>
-          <!--              setActive($event.target)-->
         </tr>
         </tbody>
       </table>
@@ -22,6 +19,10 @@
         (click)="addRandomAEvent()">Add event
       </button>
     </div>
-    <app-detail2 *ngIf="aEvent != null" class="col-lg-7 col-sm-12 mt-2" [Aevent]="aEvent"></app-detail2>
+    <app-detail2 *ngIf="activeIndex != null" class="col-lg-7 col-sm-12 mt-2"
+                 [editedEvent]="selectedEvent" (onSaveEvent)="onEventSave($event)"
+                 (onDeleteEvent)="onEventDeleted($event)"
+    >
+    </app-detail2>
   </div>
 </div>
