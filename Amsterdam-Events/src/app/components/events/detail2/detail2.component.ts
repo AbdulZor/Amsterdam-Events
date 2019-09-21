@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AEvent, AEventStatus} from "../../../models/a-event";
+import {AEvent} from "../../../models/a-event";
 
 @Component({
   selector: 'app-detail2',

@@ -1,8 +1,8 @@
-<div class="col-12" *ngIf="editedEvent != null">
+<div class="col-12" *ngIf="editedEventId != -1">
   <table class="table">
     <thead>
     <tr>
-      <th scope="col" colspan="2">Selected event details</th>
+      <th scope="col" colspan="2">Selected event details (id={{editedEventId}})</th>
     </tr>
     </thead>
     <tbody>
@@ -40,11 +40,26 @@
     </tbody>
   </table>
   <button
+    [disabled]="checkChanges()"
     class="btn btn-success float-right"
     (click)="saveEvent()">Save
   </button>
   <button
+    [disabled]="!checkChanges()"
     class="btn btn-danger float-right mr-1"
     (click)="deleteEvent()">Delete
+  </button>
+  <button
+    class="btn btn-warning float-right mr-1"
+    (click)="clearEventFields()">Clear
+  </button>
+  <button
+    [disabled]="checkChanges()"
+    class="btn btn-warning float-right mr-1"
+    (click)="resetEventFields()">Reset
+  </button>
+  <button
+    class="btn btn-secondary float-right mr-1"
+    (click)="cancelEventField()">Cancel
   </button>
 </div>

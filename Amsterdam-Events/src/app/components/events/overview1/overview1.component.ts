@@ -22,7 +22,12 @@ export class Overview1Component implements OnInit {
   }
 
   addRandomAEvent() {
-    this.aEvents.push(new AEvent("The fantastic event-" + this.j++, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()), false, this.randomDate(new Date(2019, 10, 2), new Date()), (Math.random() * 15).toFixed(2), "NO DESCPRIPTION", (Math.random() * 100).toFixed()));
+    this.aEvents.push(new AEvent("The fantastic event-" + this.j++, AEvent.getRandomStatus(),
+      this.randomDate(new Date(2019, 10, 1), new Date()),
+      false, this.randomDate(new Date(2019, 10, 2), new Date()),
+      +((Math.random() * 15).toFixed(2)),
+      "NO DESCPRIPTION",
+      (Math.random() * 100).toFixed()));
   }
 
   randomDate(start, end) {
