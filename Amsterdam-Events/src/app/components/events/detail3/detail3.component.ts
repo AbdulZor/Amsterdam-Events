@@ -7,50 +7,24 @@ import {AEvent} from "../../../models/a-event";
   templateUrl: './detail3.component.html',
   styleUrls: ['./detail3.component.css']
 })
-export class Detail3Component implements OnInit, OnChanges {
+export class Detail3Component implements OnInit {
   @Input() editedEvent: AEvent;
   @Input() editedEventId: number;
-  copyEditedEvent: AEvent;
-  copyEditedEventId: number;
+  @Input() isEdited: boolean;
+  @Input() copyEditedEvent: AEvent;
+  @Input() copyEditedEventId: number;
 
   @Output() editedEventIdChange = new EventEmitter<number>();
+  @Output() checkEditedEventChange = new EventEmitter<boolean>();
 
   constructor(private aEventService: AEventsService) {
+    this.isEdited = false;
   }
 
   ngOnInit() {
     this.copyEditedEvent = this.getUneditedEvent();
     this.copyEditedEventId = this.editedEventId;
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    const id: SimpleChange = changes.editedEventId;
-    const event: SimpleChange = changes.editedEvent;
-    console.log(changes);
-    if (changes.editedEventId != undefined) {
-      if (id.previousValue != undefined && event.previousValue != undefined) {
-        let uneditedEventPrev = this.getUneditedEventByIndex(id.previousValue);
-        if (id.currentValue != id.previousValue.editedEventId && !event.previousValue.equals(uneditedEventPrev)) {
-          let confirmResult = confirm("Are you sure to discard edited changes?");
-          if (!confirmResult){
-            this.editedEvent = event.previousValue;
-            this.editedEventId = id.previousValue;
-            event.currentValue = event.previousValue;
-            id.currentValue = id.previousValue;
-            this.editedEventIdChange.emit(id.previousValue);
-          }
-        }
-      }
-    }
-    // if (id.previousValue && id.previousValue)
-  }
-
-  // kijk naar changes in editedEvent vergeleken met copy nadat je op andere id klikt
-  // ngOnChanges() {
-  //   this.copyEditedEvent = this.getUneditedEvent();
-  //   if (this.aEventService.getAEvents()[this.copyEditedEventId].equals())
-  // }
-
 
   deleteEvent() {
     let confirmResult = confirm("Are you sure to delete the event?");
@@ -64,6 +38,8 @@ export class Detail3Component implements OnInit, OnChanges {
 
   saveEvent() {
     this.aEventService.update(this.editedEventId, this.editedEvent);
+    this.isEdited = false;
+    this.checkChangesField();
     this.changeEditedEventId();
   }
 
@@ -73,20 +49,22 @@ export class Detail3Component implements OnInit, OnChanges {
       this.editedEvent = new AEvent(null, null, null, null,
         null, null, null, null
       );
+      this.checkChangesField();
     }
   }
 
   resetEventFields() {
-    console.log(this.editedEvent.equals(this.copyEditedEvent));
     if (!this.editedEvent.equals(this.copyEditedEvent)) {
       let confirmResult = confirm("Are you sure to discard the changes?");
-      if (confirmResult) this.editedEvent = this.getUneditedEvent();
+      if (confirmResult) {
+        this.editedEvent = this.getUneditedEvent();
+      }
     }
-    console.log(this.editedEvent);
+    this.checkChangesField();
   }
 
   cancelEventField() {
-    if (!this.checkChanges()) {
+    if (!this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent)) {
       let confirmResult = confirm("Are you sure to discard the changes?");
       if (confirmResult) {
         this.editedEvent = this.getUneditedEvent();
@@ -112,7 +90,12 @@ export class Detail3Component implements OnInit, OnChanges {
     return AEvent.copyTrue(events[index]);
   }
 
-  checkChanges() {
-    return this.editedEvent.equals(this.copyEditedEvent);
+  checkChangesField() {
+    this.isEdited = this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
+    this.checkEditedEventChange.emit(!this.isEdited);
+  }
+
+  checkChangesButton() {
+    return this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
   }
 }

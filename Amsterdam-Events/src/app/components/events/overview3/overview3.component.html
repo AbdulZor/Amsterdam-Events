@@ -26,6 +26,8 @@
     <app-detail3 *ngIf="selectedAEventIndex != null" class="col-lg-7 col-sm-12 mt-2"
                  [editedEvent]="selectedEvent"
                  [(editedEventId)]="selectedAEventIndex"
+                 [isEdited]="unsavedChanges"
+                 (checkEditedEventChange)="onChangeReq($event)"
     >
     </app-detail3>
   </div>
