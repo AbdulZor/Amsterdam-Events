@@ -36,7 +36,7 @@ export class Overview3Component implements OnInit {
     if (this.selectedAEventIndex != -1 || this.selectedAEventIndex != null) {
       if (this.unsavedChanges) {
         let result = confirm("Ben je zeker van changes?");
-        if (result == true) {
+        if (result) {
           this.selectedAEventIndex = index;
           this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
           this.unsavedChanges = false;
