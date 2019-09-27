@@ -31,6 +31,7 @@ export class Overview4Component implements OnInit, OnDestroy {
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
         (params: Params) => {
+          console.log("Hallo");
           console.log(params);
           this.selectedAEventIndex = params['id'];
           this.unsavedChanges = params['isEdited']; // lukt niet om gegeven van detail hier in deze comp te krijgen
