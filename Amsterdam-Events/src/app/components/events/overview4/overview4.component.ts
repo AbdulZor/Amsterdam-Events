@@ -26,6 +26,7 @@ export class Overview4Component implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log(this.route.queryParams);
+    console.log("Dit is een verandering van Abdul");
     this.unsavedChanges = this.route.queryParams['isEdited']; // lukt niet
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
