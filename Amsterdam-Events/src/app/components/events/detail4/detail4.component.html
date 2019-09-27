@@ -9,43 +9,43 @@
     <tr>
       <th scope="row" [ngClass]="'border'">Title:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.title" (ngModelChange)="checkChangesField()"></th>
+        <input [(ngModel)]="editedEvent.title" (ngModelChange)="checkChanges()"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Description:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.description" (ngModelChange)="checkChangesField()"></th>
+        <input [(ngModel)]="editedEvent.description" (ngModelChange)="checkChanges()"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Status:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.status" (ngModelChange)="checkChangesField()"></th>
+        <input [(ngModel)]="editedEvent.status" (ngModelChange)="checkChanges()"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Is Ticketed:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.IsTicketed" (ngModelChange)="checkChangesField()"></th>
+        <input [(ngModel)]="editedEvent.IsTicketed" (ngModelChange)="checkChanges()"></th>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Participat  ion Fee:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.participationFee" (ngModelChange)="checkChangesField()"></th>
+        <input [(ngModel)]="editedEvent.participationFee" (ngModelChange)="checkChanges()"></th>
       <p></p>
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Max. Participation:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.maxParticipants" (ngModelChange)="checkChangesField()"></th>
+        <input [(ngModel)]="editedEvent.maxParticipants" (ngModelChange)="checkChanges()"></th>
     </tr>
     </tbody>
   </table>
   <button
-    [disabled]="checkChangesButton()"
+    [disabled]="checkChanges()"
     class="btn btn-success float-right"
     (click)="saveEvent()">Save
   </button>
   <button
-    [disabled]="!checkChangesButton()"
+    [disabled]="!checkChanges()"
     class="btn btn-danger float-right mr-1"
     (click)="deleteEvent()">Delete
   </button>
@@ -54,7 +54,7 @@
     (click)="clearEventFields()">Clear
   </button>
   <button
-    [disabled]="checkChangesButton()"
+    [disabled]="checkChanges()"
     class="btn btn-warning float-right mr-1"
     (click)="resetEventFields()">Reset
   </button>

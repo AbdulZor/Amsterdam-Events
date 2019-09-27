@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
 import {AEventsService} from "../../../services/a-events.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Subscription} from "rxjs";
-import {root} from "rxjs/internal-compatibility";
 
 @Component({
   selector: 'app-detail4',
@@ -11,31 +10,45 @@ import {root} from "rxjs/internal-compatibility";
   styleUrls: ['./detail4.component.css']
 })
 export class Detail4Component implements OnInit, OnDestroy {
-  @Input() editedEvent: AEvent;
+  editedEvent: AEvent;
   editedEventId: number;
-  @Input() isEdited: boolean;
-  @Input() copyEditedEvent: AEvent;
-  @Input() copyEditedEventId: number;
 
   private subscriptionQueryParam: Subscription = null;
 
   constructor(private aEventService: AEventsService,
               private router: Router,
               private route: ActivatedRoute) {
-    this.isEdited = false;
   }
 
   ngOnInit() {
     this.editedEventId = this.route.snapshot.queryParams['id'];
     this.editedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[this.editedEventId]);
-    this.copyEditedEvent = this.getUneditedEvent();
-    this.copyEditedEventId = this.editedEventId;
 
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
         (params: Params) => {
-          this.editedEventId = params['id'];
-          this.editedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[this.editedEventId]);
+          console.log("in detail id=" + params['id']);
+          if (this.editedEventId == params['id']) {
+            console.log("eventId == id");
+            return;
+          }
+          if (!this.checkChanges()) {
+            console.log("eventId != id && isEdited == true");
+            if (this.confirmDiscardChanged()) {
+              console.log("yes confirmed");
+              this.editedEventId = params['id'];
+              this.editedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[this.editedEventId]);
+              this.router.navigate([], {queryParams: {id: this.editedEventId}})
+            } else {
+              console.log("no confirmed");
+              this.router.navigate([], {queryParams: {id: this.editedEventId}})
+            }
+          } else {
+            console.log("eventId != id && isEdited == false");
+            this.editedEventId = params['id'];
+            this.editedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[this.editedEventId]);
+            //this.router.navigate([], {queryParams: {id: this.editedEventId}});
+          }
         }
       );
   }
@@ -68,7 +81,7 @@ export class Detail4Component implements OnInit, OnDestroy {
   }
 
   resetEventFields() {
-    if (!this.editedEvent.equals(this.copyEditedEvent)) {
+    if (!this.checkChanges()) {
       let confirmResult = confirm("Are you sure to discard the changes?");
       if (confirmResult) {
         this.editedEvent = this.getUneditedEvent();
@@ -77,7 +90,7 @@ export class Detail4Component implements OnInit, OnDestroy {
   }
 
   cancelEventField() {
-    if (!this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent)) {
+    if (!this.checkChanges()) {
       let confirmResult = confirm("Are you sure to discard the changes?");
       if (confirmResult) {
         this.editedEvent = this.getUneditedEvent();
@@ -96,13 +109,12 @@ export class Detail4Component implements OnInit, OnDestroy {
     return AEvent.copyTrue(events[this.editedEventId]);
   }
 
-  checkChangesField() {
-     this.isEdited = this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
-    // this.checkEditedEventChange.emit(!this.isEdited);
+  checkChanges() {
+    return this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
   }
 
-  checkChangesButton() {
-    return this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
+  confirmDiscardChanged() {
+    return confirm('Are you sure to discard the changed?');
   }
 }
 

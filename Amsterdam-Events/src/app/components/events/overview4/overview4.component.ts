@@ -13,7 +13,6 @@ export class Overview4Component implements OnInit, OnDestroy {
   aEvents: AEvent[];
   selectedAEventIndex: number;
   selectedEvent: AEvent;
-  unsavedChanges: boolean;
 
   private subscriptionQueryParam: Subscription = null;
 
@@ -21,30 +20,22 @@ export class Overview4Component implements OnInit, OnDestroy {
               private router: Router,
               private route: ActivatedRoute) {
     this.aEvents = this.aEventService.aEvents;
-    this.unsavedChanges = false;
   }
 
   ngOnInit() {
-    console.log(this.route.queryParams);
-    console.log("Dit is een verandering van Abdul");
-    this.unsavedChanges = this.route.queryParams['isEdited']; // lukt niet
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
         (params: Params) => {
-          console.log("Hallo");
-          console.log(params);
+          console.log("in overview id=" + params['id']);
           this.selectedAEventIndex = params['id'];
-          this.unsavedChanges = params['isEdited']; // lukt niet om gegeven van detail hier in deze comp te krijgen
+          this.selectedEvent = this.aEventService.getAEvents()[params['id']];
+          console.log("overview Index: " + this.selectedAEventIndex);
         }
       )
   }
 
   ngOnDestroy(): void {
     this.subscriptionQueryParam.unsubscribe();
-  }
-
-  onChangeReq($event) {
-    this.unsavedChanges = $event;
   }
 
   private addRandomAEventClick() {
@@ -59,32 +50,31 @@ export class Overview4Component implements OnInit, OnDestroy {
    */
   setActive(index: number) {
     if (this.selectedAEventIndex != null && this.selectedEvent != null) {
-      console.log("unsaved: " + this.unsavedChanges);
-      if (!this.unsavedChanges) {
-        let result = confirm("Ben je zeker van changes?");
-        if (result) {
-          this.selectedAEventIndex = index;
-          this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
-          this.unsavedChanges = false;
-          this.selectedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[index]);
-
-          this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index, isEdited: this.unsavedChanges}});
-        }
-      } else {
-        this.selectedAEventIndex = index;
-        this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
-        this.unsavedChanges = false;
-        this.selectedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[index]);
-        this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index, isEdited: this.unsavedChanges}});
-      }
-    }else {
+      //   console.log("unsaved: " + this.unsavedChanges);
+      //   if (!this.unsavedChanges) {
+      //     let result = confirm("Ben je zeker van changes?");
+      //     if (result) {
+      //       this.selectedAEventIndex = index;
+      //       this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
+      //       this.unsavedChanges = false;
+      //       this.selectedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[index]);
+      //
+      //       this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});
+      //     }
+      //   } else {
+      //     this.selectedAEventIndex = index;
+      //     this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
+      //     this.unsavedChanges = false;
+      //     this.selectedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[index]);
+      //     this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});
+      //   }
+      // }else {
       this.selectedAEventIndex = index;
       this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
-      this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index, isEdited: this.unsavedChanges}});
+      this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});
     }
-  }
-
-  checkChanges() {
-    return this.aEventService.getAEvents()[this.selectedAEventIndex].equals(this.selectedEvent);
+    this.selectedAEventIndex = index;
+    this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});
   }
 }

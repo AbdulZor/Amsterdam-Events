@@ -21,8 +21,9 @@
       </button>
     </div>
     <div class="col-lg-7 col-sm-12 mt-2">
-      <p *ngIf="!selectedEvent" class="text-center mt-3 badge-info">Select event to edit</p>
-      <router-outlet *ngIf="selectedEvent"></router-outlet>
+      <p *ngIf="!selectedEvent || selectedAEventIndex == -1" class="text-center mt-3 badge-info">Select event to
+        edit</p>
+      <router-outlet *ngIf="selectedEvent || selectedAEventIndex != -1"></router-outlet>
     </div>
     <!--    <app-detail4 *ngIf="selectedAEventIndex != null" class="col-lg-7 col-sm-12 mt-2"-->
     <!--                 [editedEvent]="selectedEvent"-->
