@@ -1,0 +1,65 @@
+<div class="col-12" *ngIf="editedEvent">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col" colspan="2">Selected event details (id={{editedEventId}})</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Title:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="editedEvent.title" (ngModelChange)="checkChangesField()"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Description:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="editedEvent.description" (ngModelChange)="checkChangesField()"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Status:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="editedEvent.status" (ngModelChange)="checkChangesField()"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Is Ticketed:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="editedEvent.IsTicketed" (ngModelChange)="checkChangesField()"></th>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Participat  ion Fee:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="editedEvent.participationFee" (ngModelChange)="checkChangesField()"></th>
+      <p></p>
+    </tr>
+    <tr>
+      <th scope="row" [ngClass]="'border'">Max. Participation:</th>
+      <th scope="row" [ngClass]="'border'">
+        <input [(ngModel)]="editedEvent.maxParticipants" (ngModelChange)="checkChangesField()"></th>
+    </tr>
+    </tbody>
+  </table>
+  <button
+    [disabled]="checkChangesButton()"
+    class="btn btn-success float-right"
+    (click)="saveEvent()">Save
+  </button>
+  <button
+    [disabled]="!checkChangesButton()"
+    class="btn btn-danger float-right mr-1"
+    (click)="deleteEvent()">Delete
+  </button>
+  <button
+    class="btn btn-warning float-right mr-1"
+    (click)="clearEventFields()">Clear
+  </button>
+  <button
+    [disabled]="checkChangesButton()"
+    class="btn btn-warning float-right mr-1"
+    (click)="resetEventFields()">Reset
+  </button>
+  <button
+    class="btn btn-secondary float-right mr-1"
+    (click)="cancelEventField()">Cancel
+  </button>
+</div>

@@ -13,6 +13,8 @@ import {FormsModule} from "@angular/forms";
 import { Overview3Component } from './components/events/overview3/overview3.component';
 import { Detail3Component } from './components/events/detail3/detail3.component';
 import { ErrorComponent } from './components/mainpage/error/error.component';
+import { Overview4Component } from './components/events/overview4/overview4.component';
+import { Detail4Component } from './components/events/detail4/detail4.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,9 @@ import { ErrorComponent } from './components/mainpage/error/error.component';
     Detail2Component,
     Overview3Component,
     Detail3Component,
-    ErrorComponent
+    ErrorComponent,
+    Overview4Component,
+    Detail4Component
   ],
   imports: [
     BrowserModule,
