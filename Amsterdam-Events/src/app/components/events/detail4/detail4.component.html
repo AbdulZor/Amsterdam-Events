@@ -19,12 +19,18 @@
     <tr>
       <th scope="row" [ngClass]="'border'">Status:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.status" (ngModelChange)="checkChanges()"></th>
+        <select [(ngModel)]="editedEvent.status" (ngModelChange)="checkChanges()">
+          <option>DRAFT</option>
+          <option>PUBLISHED</option>
+          <option>CANCELED</option>
+        </select>
+        <!--        <input [(ngModel)]="editedEvent.status" (ngModelChange)="checkChanges()"></th>-->
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Is Ticketed:</th>
       <th scope="row" [ngClass]="'border'">
-        <input [(ngModel)]="editedEvent.IsTicketed" (ngModelChange)="checkChanges()"></th>
+        <input type="checkBox" name="isTicketedRadio" [(ngModel)]="editedEvent.IsTicketed"/>
+        <!--        <input [(ngModel)]="editedEvent.IsTicketed" (ngModelChange)="checkChanges()"></th>-->
     </tr>
     <tr>
       <th scope="row" [ngClass]="'border'">Participat  ion Fee:</th>

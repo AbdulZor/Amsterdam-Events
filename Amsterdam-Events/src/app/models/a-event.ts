@@ -32,16 +32,21 @@ export class AEvent {
     return AEventStatus.CANCELED;
   }
 
+  static getRandomIsTicketed(): boolean {
+    let statusCode: number;
+    statusCode = Math.random();
+    return statusCode > 0.5;
+  }
+
   static copyTrue(event: AEvent): AEvent {
     return Object.assign(new AEvent(null, null, null, null, null,
       null, null, null), event);
   }
 
   public equals(nextAevent: AEvent): boolean {
-    return this.title == nextAevent.title && this.status == nextAevent.status &&
-      this.maxParticipants == nextAevent.maxParticipants && this.IsTicketed == nextAevent.IsTicketed &&
-      this.participationFee == nextAevent.participationFee && this.description == nextAevent.description &&
-      this.start == nextAevent.start && this.end == nextAevent.end;
+    let thisEvent = JSON.stringify(this);
+    let secondEvent = JSON.stringify(nextAevent);
+    return thisEvent === secondEvent;
   }
 }
 

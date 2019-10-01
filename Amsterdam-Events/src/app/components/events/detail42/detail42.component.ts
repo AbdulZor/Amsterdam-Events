@@ -1,17 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
+import {Subscription} from "rxjs";
 import {AEventsService} from "../../../services/a-events.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {Subscription} from "rxjs";
+import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-detail4',
-  templateUrl: './detail4.component.html',
-  styleUrls: ['./detail4.component.css']
+  selector: 'app-detail42',
+  templateUrl: './detail42.component.html',
+  styleUrls: ['./detail42.component.css']
 })
-export class Detail4Component implements OnInit, OnDestroy {
+export class Detail42Component implements OnInit, OnDestroy {
   editedEvent: AEvent;
   editedEventId: number;
+  @ViewChild('formElement', {static: false}) detailForm: NgForm;
 
   private subscriptionQueryParam: Subscription = null;
 
@@ -60,6 +62,8 @@ export class Detail4Component implements OnInit, OnDestroy {
   }
 
   saveEvent() {
+    console.log(this.detailForm.valid);
+    console.log("In Sumbitted");
     this.aEventService.update(this.editedEventId, this.editedEvent);
     this.router.navigate(['..'], {relativeTo: this.route});
   }
@@ -78,6 +82,8 @@ export class Detail4Component implements OnInit, OnDestroy {
       let confirmResult = confirm("Are you sure to discard the changes?");
       if (confirmResult) {
         this.editedEvent = this.getUneditedEvent();
+        this.detailForm.form.markAsUntouched();
+        this.detailForm.form.markAsPristine();
       }
     }
   }
@@ -110,4 +116,3 @@ export class Detail4Component implements OnInit, OnDestroy {
     return confirm('Are you sure to discard the changed?');
   }
 }
-

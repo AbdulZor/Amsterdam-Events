@@ -50,25 +50,6 @@ export class Overview4Component implements OnInit, OnDestroy {
    */
   setActive(index: number) {
     if (this.selectedAEventIndex != null && this.selectedEvent != null) {
-      //   console.log("unsaved: " + this.unsavedChanges);
-      //   if (!this.unsavedChanges) {
-      //     let result = confirm("Ben je zeker van changes?");
-      //     if (result) {
-      //       this.selectedAEventIndex = index;
-      //       this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
-      //       this.unsavedChanges = false;
-      //       this.selectedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[index]);
-      //
-      //       this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});
-      //     }
-      //   } else {
-      //     this.selectedAEventIndex = index;
-      //     this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
-      //     this.unsavedChanges = false;
-      //     this.selectedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[index]);
-      //     this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});
-      //   }
-      // }else {
       this.selectedAEventIndex = index;
       this.selectedEvent = AEvent.copyTrue(this.aEvents[index]);
       this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {id: index}});

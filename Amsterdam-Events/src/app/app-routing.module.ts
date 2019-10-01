@@ -9,6 +9,7 @@ import {Overview3Component} from "./components/events/overview3/overview3.compon
 import {ErrorComponent} from "./components/mainpage/error/error.component";
 import {Overview4Component} from "./components/events/overview4/overview4.component";
 import {Detail4Component} from "./components/events/detail4/detail4.component";
+import {Detail42Component} from "./components/events/detail42/detail42.component";
 
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
       },
       {path: 'overview4', component: Overview4Component, children: [
           {path: 'edit', component: Detail4Component}
+        ]
+      },
+      {
+        path: 'overview42', component: Overview4Component, children: [
+          {path: 'edit', component: Detail42Component}
         ]
       }
     ]},

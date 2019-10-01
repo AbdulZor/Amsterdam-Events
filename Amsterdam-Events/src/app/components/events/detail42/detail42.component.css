@@ -1,0 +1,23 @@
+input.ng-invalid.ng-touched {
+  border: 1px solid darkred;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid limegreen;
+}
+
+select.ng-invalid.ng-touched {
+  border: 1px solid darkred;
+}
+
+select.ng-valid.ng-touched {
+  border: 1px solid limegreen;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 1px solid darkred;
+}
+
+textarea.ng-valid.ng-touched {
+  border: 1px solid limegreen;
+}
