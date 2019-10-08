@@ -16,6 +16,10 @@ import { ErrorComponent } from './components/mainpage/error/error.component';
 import { Overview4Component } from './components/events/overview4/overview4.component';
 import { Detail4Component } from './components/events/detail4/detail4.component';
 import {Detail42Component} from './components/events/detail42/detail42.component';
+
+import {HttpClientModule} from "@angular/common/http";
+import { Overview6Component } from './components/events/overview6/overview6.component';
+import { Detail6Component } from './components/events/detail6/detail6.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,12 +34,15 @@ import {Detail42Component} from './components/events/detail42/detail42.component
     ErrorComponent,
     Overview4Component,
     Detail4Component,
-    Detail42Component
+    Detail42Component,
+    Overview6Component,
+    Detail6Component
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

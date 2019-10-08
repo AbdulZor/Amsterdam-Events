@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AEvent} from "../models/a-event";
+import {HttpClient} from "@angular/common/http";
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ export class AEventsService {
   public j: number;
   private copyRemovedEvent: AEvent;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.j = 0;
     this.aEvents = [];
     for (let i = 0; i < 9; i++) {
@@ -19,6 +21,10 @@ export class AEventsService {
 
   getAEvents(){
     return this.aEvents;
+  }
+
+  getAevent(index: number){
+    return this.aEvents[index];
   }
 
   add(aEvent: AEvent) :number{
