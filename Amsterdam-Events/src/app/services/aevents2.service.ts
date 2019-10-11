@@ -6,6 +6,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   providedIn: 'root'
 })
 export class Aevents2Service {
+  private URL_DATA = "https://web-frameworks-abdul.firebaseio.com/data.json";
+
   public aEvents: AEvent[];
   public j: number;
   private copyRemovedEvent: AEvent;
@@ -35,11 +37,10 @@ export class Aevents2Service {
     this.saveAllAEvents();
   }
 
-  remove(eventIndex: number): AEvent {
+  remove(eventIndex: number) :void {
     this.copyRemovedEvent = this.aEvents[eventIndex];
     this.aEvents[eventIndex] = null;
     this.saveAllAEvents();
-    return this.copyRemovedEvent;
   }
 
   addRandomAEvent() {
@@ -53,7 +54,7 @@ export class Aevents2Service {
   }
 
   getAllAEvents() {
-    this.httpClient.get<AEvent[]>("https://web-frameworks-abdul.firebaseio.com/data.json")
+    this.httpClient.get<AEvent[]>(this.URL_DATA)
       .subscribe(
         (events: AEvent[]) => {
           console.log("The events: " + typeof events);
@@ -63,6 +64,10 @@ export class Aevents2Service {
             }
           } else {
             for (let i = 0; i < events.length; i++) {
+              console.log(events);
+              if (events[i] == null){
+                i++;
+              }
               this.aEvents.push(new AEvent(
                 events[i].title,
                 events[i].status,
@@ -80,7 +85,7 @@ export class Aevents2Service {
   }
 
   saveAllAEvents() {
-    this.httpClient.put("https://web-frameworks-abdul.firebaseio.com/data.json", this.aEvents)
+    this.httpClient.put(this.URL_DATA, this.aEvents)
       .subscribe(
         (events) => {
           console.log("Ik zit in put: " + events);
