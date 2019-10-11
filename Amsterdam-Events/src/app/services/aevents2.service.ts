@@ -37,16 +37,18 @@ export class Aevents2Service {
     this.saveAllAEvents();
   }
 
-  remove(eventIndex: number) :void {
+  remove(eventIndex: number): AEvent {
     this.copyRemovedEvent = this.aEvents[eventIndex];
-    this.aEvents[eventIndex] = null;
+    this.aEvents.splice(eventIndex, 1);
     this.saveAllAEvents();
+    return this.copyRemovedEvent;
   }
 
   addRandomAEvent() {
-    this.add(new AEvent("The fantastic event-" + ++this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
+    this.aEvents.push(new AEvent("The fantastic event-" + ++this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
       AEvent.getRandomIsTicketed(), this.randomDate(new Date(2019, 10, 2), new Date()),
       +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", (Math.random() * 100).toFixed()));
+    this.saveAllAEvents();
   }
 
   randomDate(start, end) {
@@ -58,14 +60,16 @@ export class Aevents2Service {
       .subscribe(
         (events: AEvent[]) => {
           console.log("The events: " + typeof events);
-          if (events == null) {
+          if (!events) {
             for (let i = 0; i < 5; i++) {
               this.addRandomAEvent();
             }
           } else {
+            // this.aEvents = events;
+            console.log(this.aEvents);
             for (let i = 0; i < events.length; i++) {
               console.log(events);
-              if (events[i] == null){
+              if (events[i] == null) {
                 i++;
               }
               this.aEvents.push(new AEvent(
@@ -78,6 +82,7 @@ export class Aevents2Service {
                 events[i].description,
                 events[i].maxParticipants));
             }
+
           }
         },
         (error) => console.log(error)
@@ -85,10 +90,13 @@ export class Aevents2Service {
   }
 
   saveAllAEvents() {
-    this.httpClient.put(this.URL_DATA, this.aEvents)
+    this.httpClient.put<AEvent[]>(this.URL_DATA, this.aEvents)
       .subscribe(
         (events) => {
           console.log("Ik zit in put: " + events);
+        },
+        (error) => {
+          console.log(error);
         }
       )
   }

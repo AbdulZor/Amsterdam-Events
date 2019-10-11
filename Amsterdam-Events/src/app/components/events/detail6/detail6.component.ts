@@ -60,7 +60,6 @@ export class Detail6Component implements OnInit, OnDestroy {
     let confirmResult = confirm("Are you sure to delete the event?");
     if (confirmResult) {
       this.aEventService.remove(this.editedEventId);
-      this.editedEvent = null;
       this.router.navigate(['..'], {relativeTo: this.route});
     }
   }

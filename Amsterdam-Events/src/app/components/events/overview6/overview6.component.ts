@@ -23,7 +23,8 @@ export class Overview6Component implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.aEvents = this.aEventService.getAEvents();
+    this.aEvents = this.aEventService.aEvents;
+    console.log(this.aEventService.aEvents);
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
         (params: Params) => {
