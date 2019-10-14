@@ -39,8 +39,7 @@ export class AEvent {
   }
 
   static copyTrue(event: AEvent): AEvent {
-    return Object.assign(new AEvent(null, null, null, null, null,
-      null, null, null), event);
+    return Object.assign(new AEvent(), event);
   }
 
   public equals(nextAevent: AEvent): boolean {

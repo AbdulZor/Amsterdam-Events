@@ -20,6 +20,16 @@ import {Detail42Component} from './components/events/detail42/detail42.component
 import {HttpClientModule} from "@angular/common/http";
 import { Overview6Component } from './components/events/overview6/overview6.component';
 import { Detail6Component } from './components/events/detail6/detail6.component';
+import { AppFbComponent } from './app-fb.component';
+
+import {AEventsService} from "./services/a-events.service";
+import {Aevents2Service} from "./services/aevents2.service";
+import {SessionService} from "./services/session/session.service";
+import { LoginComponent } from './components/events/login/login.component';
+import { RegisterComponent } from './components/events/register/register.component';
+import { Header2Component } from './components/mainpage/header2/header2.component';
+import { SignOnComponent } from './components/mainpage/sign-on/sign-on.component';
+import { NavBar2Component } from './components/mainpage/nav-bar2/nav-bar2.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +46,13 @@ import { Detail6Component } from './components/events/detail6/detail6.component'
     Detail4Component,
     Detail42Component,
     Overview6Component,
-    Detail6Component
+    Detail6Component,
+    AppFbComponent,
+    LoginComponent,
+    RegisterComponent,
+    Header2Component,
+    SignOnComponent,
+    NavBar2Component
   ],
   imports: [
     BrowserModule,
@@ -44,7 +60,8 @@ import { Detail6Component } from './components/events/detail6/detail6.component'
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AEventsService, Aevents2Service, SessionService],
+  // bootstrap: [AppComponent]
+  bootstrap: [AppFbComponent]
 })
 export class AppModule { }

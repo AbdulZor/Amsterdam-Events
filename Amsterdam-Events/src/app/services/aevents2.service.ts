@@ -63,6 +63,7 @@ export class Aevents2Service {
           if (!events) {
             for (let i = 0; i < 5; i++) {
               this.addRandomAEvent();
+              this.saveAllAEvents();
             }
           } else {
             // this.aEvents = events;
@@ -72,6 +73,7 @@ export class Aevents2Service {
               if (events[i] == null) {
                 i++;
               }
+              // this.aEvents = events ? events.map(o => AEvent.copyTrue(o)) : [];
               this.aEvents.push(new AEvent(
                 events[i].title,
                 events[i].status,
@@ -85,7 +87,9 @@ export class Aevents2Service {
 
           }
         },
-        (error) => console.log(error)
+        (error) => {
+          console.log(error);
+        }
       )
   }
 
@@ -94,9 +98,6 @@ export class Aevents2Service {
       .subscribe(
         (events) => {
           console.log("Ik zit in put: " + events);
-        },
-        (error) => {
-          console.log(error);
         }
       )
   }

@@ -12,6 +12,8 @@ import {Detail4Component} from "./components/events/detail4/detail4.component";
 import {Detail42Component} from "./components/events/detail42/detail42.component";
 import {Overview6Component} from "./components/events/overview6/overview6.component";
 import {Detail6Component} from "./components/events/detail6/detail6.component";
+import {LoginComponent} from "./components/events/login/login.component";
+import {SignOnComponent} from "./components/mainpage/sign-on/sign-on.component";
 
 
 const routes: Routes = [
@@ -41,6 +43,12 @@ const routes: Routes = [
         ]
       }
     ]},
+  {
+    path: 'login', component: SignOnComponent
+  },
+  {
+    path: 'signup', component:SignOnComponent
+  },
   {path: '**', component: ErrorComponent}
 ];
 
