@@ -26,13 +26,13 @@
       </li>
     </ul>
     <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-      <li *ngIf="!SessionService.token" class="nav-item">
+      <li *ngIf="!SessionService.isAuthenticated()" class="nav-item">
         <a class="nav-link" [routerLink]="['signup']">Sign up</a>
       </li>
-      <li *ngIf="!SessionService.token" class="nav-item">
+      <li *ngIf="!SessionService.isAuthenticated()" class="nav-item">
         <a class="nav-link" [routerLink]="['login']">Log in</a>
       </li>
-      <li *ngIf="SessionService.token" class="nav-item">
+      <li *ngIf="SessionService.isAuthenticated()" class="nav-item">
         <a class="nav-link" (click)="SessionService.signOff()">Log out</a>
       </li>
     </ul>

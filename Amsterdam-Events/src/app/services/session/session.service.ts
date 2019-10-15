@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +12,23 @@ export class SessionService {
   public token: string;
 
 
-  constructor() { }
+  constructor(private router: Router) {
+  }
 
-  signOn(eMail: string, passWord: string){
+  signOn(eMail: string, passWord: string) {
     firebase.auth().signInWithEmailAndPassword(eMail, passWord)
       .then(res => {
         this.userName = res.user.email;
-        console.log(this.userName);
-        firebase.auth().currentUser.getIdToken().then(
-          token => this.token = token
-        );
+        this.router.navigate(['/']);
+        firebase.auth().currentUser.getIdToken()
+          .then(
+            token => this.token = token
+          );
       })
       .catch(err => console.log(err));
   }
 
-  signUp(eMail: string, passWord: string){
+  signUp(eMail: string, passWord: string) {
     firebase.auth().createUserWithEmailAndPassword(eMail, passWord)
       .then(res => {
         this.userName = res.user.email;
@@ -36,12 +39,29 @@ export class SessionService {
   }
 
 
-  signOff(){
+  signOff() {
     firebase.auth().signOut()
       .then(res => {
-        console.log("In signOut, res: " + res +  " \t" + this.userName);
+        console.log("In signOut, res: " + res + " \t" + this.userName);
         this.token = null;
         this.userName = null;
+        this.router.navigate(['/']);
       });
+  }
+
+  isAuthenticated(){
+    return this.token != null;
+  }
+
+  getToken(){
+    firebase.auth().currentUser.getIdToken()
+      .then(
+        (token) => this.token = token
+      ).catch(err => console.log(err));
+    return this.token;
+  }
+
+  refreshToken(){
+
   }
 }
