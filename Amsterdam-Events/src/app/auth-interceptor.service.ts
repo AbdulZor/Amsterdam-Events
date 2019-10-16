@@ -12,10 +12,10 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let token = this.session.token;
+    if (req.url.match('/data.json'))
+      return next.handle(req);
 
-    // if (req.url.match('/data.json'))
-    //   return next.handle(req);
+    let token = this.session.getToken();
 
     if (token) {
       const cloned = req.clone({

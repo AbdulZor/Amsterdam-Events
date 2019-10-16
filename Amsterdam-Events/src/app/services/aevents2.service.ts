@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AEvent} from "../models/a-event";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {SessionService} from "./session/session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class Aevents2Service {
   public j: number;
   private copyRemovedEvent: AEvent;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private sessionService: SessionService) {
     this.j = 0;
     this.aEvents = [];
     this.getAllAEvents();
@@ -33,15 +34,19 @@ export class Aevents2Service {
   }
 
   update(eventIndex: number, updatedAEvent: AEvent): void {
-    this.aEvents[eventIndex] = updatedAEvent;
-    this.saveAllAEvents();
+    if (this.sessionService.isAuthenticated()){
+      this.aEvents[eventIndex] = updatedAEvent;
+      this.saveAllAEvents();
+    }
   }
 
   remove(eventIndex: number): AEvent {
-    this.copyRemovedEvent = this.aEvents[eventIndex];
-    this.aEvents.splice(eventIndex, 1);
-    this.saveAllAEvents();
-    return this.copyRemovedEvent;
+    if (this.sessionService.isAuthenticated()) {
+      this.copyRemovedEvent = this.aEvents[eventIndex];
+      this.aEvents.splice(eventIndex, 1);
+      this.saveAllAEvents();
+      return this.copyRemovedEvent;
+    }
   }
 
   addRandomAEvent() {
