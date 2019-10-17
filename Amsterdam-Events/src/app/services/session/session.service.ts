@@ -20,6 +20,7 @@ export class SessionService {
       .then(res => {
         this.userName = res.user.email;
         this.router.navigate(['/']);
+        console.log(firebase.auth().currentUser);
         firebase.auth().currentUser.getIdToken()
           .then(
             token => this.token = token
@@ -54,6 +55,7 @@ export class SessionService {
   }
 
   getToken(){
+    console.log(firebase.auth().currentUser);
     firebase.auth().currentUser.getIdToken()
       .then(
         (token) => this.token = token
