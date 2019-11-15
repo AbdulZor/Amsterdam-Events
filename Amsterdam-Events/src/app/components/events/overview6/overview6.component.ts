@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Aevents2Service} from "../../../services/aevents2.service";
 import {AEventsService} from "../../../services/a-events.service";
+import {SessionService} from "../../../services/session/session.service";
 
 @Component({
   selector: 'app-overview6',
@@ -19,7 +20,8 @@ export class Overview6Component implements OnInit, OnDestroy {
 
   constructor(private aEventService: Aevents2Service,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private SessionService: SessionService) {
   }
 
   ngOnInit() {

@@ -55,7 +55,6 @@ export class SessionService {
   }
 
   getToken(){
-    console.log(firebase.auth().currentUser);
     firebase.auth().currentUser.getIdToken()
       .then(
         (token) => this.token = token

@@ -6,11 +6,11 @@ export class AEvent {
   end: Date;
   participationFee: number;
   description: string;
-  maxParticipants: string;
+  maxParticipants: number;
 
 
   constructor(title?: string, status?: AEventStatus, start?: Date, IsTicketed?: boolean,
-              end?: Date, participationFee?: number, description?: string, maxParticipants?: string) {
+              end?: Date, participationFee?: number, description?: string, maxParticipants?: number) {
     this.title = title;
     this.status = status;
     this.start = start;
