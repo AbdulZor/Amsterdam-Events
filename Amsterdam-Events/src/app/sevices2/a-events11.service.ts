@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AEvent} from "../models/a-event";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {SessionService} from "./session/session.service";
+import {HttpClient} from "@angular/common/http";
+import {SessionService} from "../services/session/session.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class Aevents2Service {
-  private URL_DATA = "https://web-frameworks-abdul.firebaseio.com/data.json";
+export class AEvents11Service {
+  private URL_DATA = "http://localhost:8084/aevents";
 
   public aEvents: AEvent[];
   public j: number;
@@ -34,7 +34,7 @@ export class Aevents2Service {
   }
 
   update(eventIndex: number, updatedAEvent: AEvent): void {
-    if (this.sessionService.isAuthenticated()){
+    if (this.sessionService.isAuthenticated()) {
       this.aEvents[eventIndex] = updatedAEvent;
       this.saveAllAEvents();
     }

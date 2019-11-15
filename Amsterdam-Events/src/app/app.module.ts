@@ -32,6 +32,10 @@ import {SignOnComponent} from './components/mainpage/sign-on/sign-on.component';
 import {NavBar2Component} from './components/mainpage/nav-bar2/nav-bar2.component';
 import {AuthGuardServiceService} from "./services/guards/auth-guard-service.service";
 import {AuthInterceptorService} from "./auth-interceptor.service";
+import { Overview11Component } from './components/aevents2/overview11/overview11.component';
+import { Detail11Component } from './components/aevents2/detail11/detail11.component';
+import {AEvents11Service} from "./sevices2/a-events11.service";
+import {Overview11InterceptorService} from "./overview11-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -55,7 +59,9 @@ import {AuthInterceptorService} from "./auth-interceptor.service";
     RegisterComponent,
     Header2Component,
     SignOnComponent,
-    NavBar2Component
+    NavBar2Component,
+    Overview11Component,
+    Detail11Component,
   ],
   imports: [
     BrowserModule,
@@ -66,11 +72,13 @@ import {AuthInterceptorService} from "./auth-interceptor.service";
   providers: [AEventsService,
     Aevents2Service,
     SessionService,
+    AEvents11Service,
     AuthGuardServiceService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: Overview11InterceptorService, multi: true}
+    // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
-  // bootstrap: [AppComponent]
-  bootstrap: [AppFbComponent]
+  bootstrap: [AppComponent]
+  // bootstrap: [AppFbComponent]
 })
 export class AppModule {
 }

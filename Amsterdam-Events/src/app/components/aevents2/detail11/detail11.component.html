@@ -1,0 +1,104 @@
+<div class="col-12" *ngIf="editedEvent">
+  <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+    <div class="form-row">
+      <label for="titleInput">Title: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="titleInput"
+        name="titleInput"
+        [(ngModel)]="editedEvent.title"
+        (ngModelChange)="checkChanges()"
+        required
+        minlength="10">
+    </div>
+    <div class="form-group">
+      <label for="descriptionInput">Description: </label>
+      <textarea
+        class="form-control"
+        type="text"
+        id="descriptionInput"
+        placeholder='Description'
+        name="descriptionInput"
+        minlength="10"
+        [(ngModel)]="editedEvent.description"
+        (ngModelChange)="checkChanges()"
+        required>
+    </textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="statusInput">Status: &nbsp;</label>
+        <select
+          name="statusInput"
+          id="statusInput"
+          [(ngModel)]="editedEvent.status"
+          (ngModelChange)="checkChanges()"
+          required>
+          <option>DRAFT</option>
+          <option>PUBLISHED</option>
+          <option>CANCELED</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="ticketedInput">Is Ticketed: &nbsp;</label>
+        <input
+          type="checkBox"
+          id="ticketedInput"
+          name="isTicketedRadio"
+          [(ngModel)]="editedEvent.IsTicketed">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="participationInput">Participation Fee: </label>
+        <input
+          type="number"
+          name="participationInput"
+          id="participationInput"
+          [(ngModel)]="editedEvent.participationFee"
+          (ngModelChange)="checkChanges()"
+          [pattern]="'^[-+]?[0-9]+(\.[0-9]+)?'"
+          required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="maxParticipationInput">Max. Participation: </label>
+        <input
+          type="number"
+          id="maxParticipationInput"
+          name="maxParticipationInput"
+          [(ngModel)]="editedEvent.maxParticipants"
+          required
+          [pattern]="'^[0-9]*'">
+      </div>
+    </div>
+    <button
+      [disabled]="checkChanges() || !formElement.valid"
+      class="btn btn-success float-right"
+      (click)="saveEvent()">
+      Save
+    </button>
+    <button
+      [disabled]="!checkChanges()"
+      class="btn btn-danger float-right mr-1"
+      (click)="deleteEvent()">Delete
+    </button>
+    <button
+      class="btn btn-warning float-right mr-1"
+      (click)="clearEventFields()">Clear
+    </button>
+    <button
+      [disabled]="checkChanges()"
+      class="btn btn-warning float-right mr-1"
+      (click)="resetEventFields()">Reset
+    </button>
+    <button
+      class="btn btn-secondary float-right mr-1"
+      (click)="cancelEventField()">Cancel
+    </button>
+    <div class="alert alert-danger col-md-6" *ngIf="formElement.touched && formElement.invalid">
+      Please enter valid input to highlighted fields!
+    </div>
+  </form>
+</div>
+

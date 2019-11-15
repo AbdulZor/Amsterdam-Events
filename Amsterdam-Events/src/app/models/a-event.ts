@@ -1,4 +1,5 @@
 export class AEvent {
+  id: number;
   title: string;
   status: AEventStatus;
   start: Date;
@@ -9,8 +10,9 @@ export class AEvent {
   maxParticipants: number;
 
 
-  constructor(title?: string, status?: AEventStatus, start?: Date, IsTicketed?: boolean,
-              end?: Date, participationFee?: number, description?: string, maxParticipants?: number) {
+  constructor(id?: number, title?: string, status?: AEventStatus, start?: Date,
+              end?: Date, IsTicketed?: boolean, participationFee?: number, description?: string, maxParticipants?: number) {
+    this.id = id;
     this.title = title;
     this.status = status;
     this.start = start;

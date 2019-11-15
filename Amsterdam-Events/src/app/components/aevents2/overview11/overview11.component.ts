@@ -2,22 +2,22 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {Aevents2Service} from "../../../services/aevents2.service";
+import {AEvents11Service} from "../../../sevices2/a-events11.service";
 import {SessionService} from "../../../services/session/session.service";
 
 @Component({
-  selector: 'app-overview6',
-  templateUrl: './overview6.component.html',
-  styleUrls: ['./overview6.component.css']
+  selector: 'app-overview11',
+  templateUrl: './overview11.component.html',
+  styleUrls: ['./overview11.component.css']
 })
-export class Overview6Component implements OnInit, OnDestroy {
+export class Overview11Component implements OnInit, OnDestroy {
   aEvents: AEvent[];
   selectedAEventIndex: number;
   selectedEvent: AEvent;
 
   private subscriptionQueryParam: Subscription = null;
 
-  constructor(private aEventService: Aevents2Service,
+  constructor(private aEventService: AEvents11Service,
               private router: Router,
               private route: ActivatedRoute,
               private SessionService: SessionService) {

@@ -15,6 +15,8 @@ import {Detail6Component} from "./components/events/detail6/detail6.component";
 import {LoginComponent} from "./components/events/login/login.component";
 import {SignOnComponent} from "./components/mainpage/sign-on/sign-on.component";
 import {AuthGuardServiceService} from "./services/guards/auth-guard-service.service";
+import {Overview11Component} from "./components/aevents2/overview11/overview11.component";
+import {Detail11Component} from "./components/aevents2/detail11/detail11.component";
 
 
 const routes: Routes = [
@@ -44,7 +46,12 @@ const routes: Routes = [
       },
       {
         path: 'overview6', component: Overview6Component, children: [
-          {path: 'edit', component: Detail6Component,  canActivateChild: [AuthGuardServiceService]}
+          {path: 'edit', component: Detail6Component, canActivateChild: [AuthGuardServiceService]}
+        ]
+      },
+      {
+        path: 'overview11', component: Overview11Component, children: [
+          {path: 'edit', component: Detail11Component, canActivate: [AuthGuardServiceService]}
         ]
       }
     ]
