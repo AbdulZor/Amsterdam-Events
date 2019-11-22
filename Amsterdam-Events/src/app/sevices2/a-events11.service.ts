@@ -63,8 +63,7 @@ export class AEvents11Service {
   getAllAEvents() {
     this.httpClient.get<AEvent[]>(this.URL_DATA)
       .subscribe(
-        (events: AEvent[]) => {
-          console.log("The events: " + typeof events);
+        (events: AEvent[]) => {;
           if (!events) {
             for (let i = 0; i < 5; i++) {
               this.addRandomAEvent();
@@ -74,7 +73,6 @@ export class AEvents11Service {
             // this.aEvents = events;
             console.log(this.aEvents);
             for (let i = 0; i < events.length; i++) {
-              console.log(events);
               if (events[i] == null) {
                 i++;
               }

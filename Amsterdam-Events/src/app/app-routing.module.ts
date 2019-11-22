@@ -51,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: 'overview11', component: Overview11Component, children: [
-          {path: 'edit', component: Detail11Component, canActivate: [AuthGuardServiceService]}
+          {path: 'edit', component: Detail11Component}
         ]
       }
     ]

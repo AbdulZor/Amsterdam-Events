@@ -7,7 +7,7 @@ import {SessionService} from "./session/session.service";
   providedIn: 'root'
 })
 export class Aevents2Service {
-  private URL_DATA = "https://web-frameworks-abdul.firebaseio.com/data.json";
+  private URL_DATA = "http://localhost:8084/aevents";
 
   public aEvents: AEvent[];
   public j: number;
