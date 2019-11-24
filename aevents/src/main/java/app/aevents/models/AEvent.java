@@ -62,6 +62,42 @@ public class AEvent {
         return maxParticipants;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public void setTicketed(boolean ticketed) {
+        isTicketed = ticketed;
+    }
+
+    public void setParticipationFee(double participationFee) {
+        this.participationFee = participationFee;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
+    }
+
     public static boolean getRandomIsTicketed() {
         return Math.random() < 0.5;
     }

@@ -11,9 +11,11 @@ import java.util.List;
 public class AEventsRepositoryMock implements AEventsRepository {
     private List<AEvent> AEvents;
 
+    private static int usersCount = 8;
+
     public AEventsRepositoryMock() {
         this.AEvents = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 8; i++) {
             this.AEvents.add(new AEvent(i, "Aevent " + i, "PUBLISHED", new Date(), new Date(),
                     AEvent.getRandomIsTicketed(), Math.random() * 100, "Best event",
                     (int) (Math.random() * 10)));
@@ -24,4 +26,39 @@ public class AEventsRepositoryMock implements AEventsRepository {
     public List<AEvent> findAll() {
         return this.AEvents;
     }
+
+    @Override
+    public AEvent findById(Long id) {
+        return AEvents.stream()
+                .filter(user -> user.getId() == id)
+                .findFirst().orElse(null);
+    }
+
+    @Override
+    public AEvent save(AEvent aEvent) {
+        for (int i = 0; i < AEvents.size(); i++) {
+            if (AEvents.get(i).getId() == aEvent.getId()) {
+                AEvents.set(i, aEvent);
+                return aEvent;
+            }
+        }
+        AEvents.add(aEvent);
+        return aEvent;
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        boolean isValidId = AEvents.stream().anyMatch(aEvent -> aEvent.getId() == id);
+        if (isValidId) {
+            for (int i = 0; i < AEvents.size(); i++) {
+                if (AEvents.get(i).getId() == id) {
+                    AEvents.remove(i);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
 }
