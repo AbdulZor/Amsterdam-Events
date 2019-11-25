@@ -40,10 +40,8 @@ export class Overview11Component implements OnInit, OnDestroy {
         this.subscriptionQueryParam =
           this.route.queryParams.subscribe(
             (params: Params) => {
-              console.log("in overview id=" + params['id']);
               this.selectedAEventIndex = params['id'];
               this.selectedEvent = this.aEvents[this.selectedAEventIndex];
-              // this.aEvents = this.aEventService.aEvents;
             }
           )
       },

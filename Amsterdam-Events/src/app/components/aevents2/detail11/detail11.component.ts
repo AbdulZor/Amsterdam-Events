@@ -23,7 +23,6 @@ export class Detail11Component implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log("Halloooo: " + this.aEventService.getAEvents());
     this.aEventService.getAllAEvents2().subscribe(
       (events: AEvent[]) => {
         events.forEach(
@@ -42,7 +41,6 @@ export class Detail11Component implements OnInit, OnDestroy {
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
         (params: Params) => {
-          console.log("Detail11 - parameter id = " + params['id']);
           if (this.editedEventId == params['id']) {
             return;
           }
@@ -120,8 +118,6 @@ export class Detail11Component implements OnInit, OnDestroy {
   }
 
   checkChanges() {
-    console.log("editedEventId = " + this.editedEventId);
-    // console.log(this.aEventService.getAEvents()[this.editedEventId]);
     return this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
   }
 
