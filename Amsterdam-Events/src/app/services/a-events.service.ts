@@ -43,9 +43,7 @@ export class AEventsService {
   }
 
   addRandomAEvent() {
-    this.aEvents.push(new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
-      this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(),
-      +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed()));
+    this.aEvents.push(new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()), this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(), +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed()));
   }
 
   randomDate(start, end) {

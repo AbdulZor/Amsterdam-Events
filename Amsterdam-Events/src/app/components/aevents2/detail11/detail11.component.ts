@@ -72,9 +72,7 @@ export class Detail11Component implements OnInit, OnDestroy {
   clearEventFields() {
     let confirmResult = confirm("Are you sure to clear all fields?");
     if (confirmResult) {
-      this.editedEvent = new AEvent(null, null, null, null,
-        null, null, null, null
-      );
+      this.editedEvent = new AEvent(null, null, null, null, null, null, null, null);
     }
   }
 
@@ -110,9 +108,8 @@ export class Detail11Component implements OnInit, OnDestroy {
   }
 
   checkChanges() {
-    console.log(this.aEventService.getAEvents());
     console.log("editedEventId = " + this.editedEventId);
-    console.log(this.aEventService.getAEvents()[this.editedEventId]);
+    // console.log(this.aEventService.getAEvents()[this.editedEventId]);
     return this.aEventService.getAEvents()[this.editedEventId].equals(this.editedEvent);
   }
 

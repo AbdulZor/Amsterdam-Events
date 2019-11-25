@@ -74,9 +74,7 @@ export class Detail6Component implements OnInit, OnDestroy {
   clearEventFields() {
     let confirmResult = confirm("Are you sure to clear all fields?");
     if (confirmResult) {
-      this.editedEvent = new AEvent(null, null, null, null,
-        null, null, null, null
-      );
+      this.editedEvent = new AEvent(null, null, null, null, null, null, null, null);
     }
   }
 

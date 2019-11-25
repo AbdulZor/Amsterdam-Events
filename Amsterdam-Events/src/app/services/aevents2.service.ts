@@ -50,9 +50,7 @@ export class Aevents2Service {
   }
 
   addRandomAEvent() {
-    this.aEvents.push(new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
-      this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(),
-      +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed()));
+    this.aEvents.push(new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()), this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(), +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed()));
     this.saveAllAEvents();
   }
 
@@ -79,16 +77,7 @@ export class Aevents2Service {
                 i++;
               }
               // this.aEvents = events ? events.map(o => AEvent.copyTrue(o)) : [];
-              this.aEvents.push(new AEvent(
-                events[i].id,
-                events[i].title,
-                events[i].status,
-                events[i].start,
-                events[i].end,
-                events[i].IsTicketed,
-                events[i].participationFee,
-                events[i].description,
-                events[i].maxParticipants));
+              this.aEvents.push(new AEvent(events[i].id, events[i].title, events[i].status, events[i].start, events[i].end, events[i].IsTicketed, events[i].participationFee, events[i].description, events[i].maxParticipants));
             }
 
           }

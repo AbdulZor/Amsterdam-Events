@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AEvent} from "../models/a-event";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {SessionService} from "../services/session/session.service";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AEvents11Service {
   private copyRemovedEvent: AEvent;
 
   constructor(private httpClient: HttpClient, private sessionService: SessionService) {
-    this.j = 0;
+    this.j = 8;
     this.aEvents = [];
     this.getAllAEvents();
   }
@@ -29,7 +29,9 @@ export class AEvents11Service {
 
   add(aEvent: AEvent): number {
     this.aEvents.push(aEvent);
-    this.saveAllAEvents();
+    this.saveAEvent(aEvent);
+    // console.log("AEvents in array: " + this.aEvents);
+    // console.log("AEvents from API: " + this.getAllAEvents());
     return this.aEvents.length - 1;
   }
 
@@ -50,9 +52,7 @@ export class AEvents11Service {
   }
 
   addRandomAEvent() {
-    let aEvent = new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
-      this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(),
-      +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed());
+    let aEvent = new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()), this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(), +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed());
     this.add(aEvent);
   }
 
@@ -64,7 +64,6 @@ export class AEvents11Service {
     this.httpClient.get<AEvent[]>(this.URL_DATA)
       .subscribe(
         (events: AEvent[]) => {
-          ;
           if (!events) {
             for (let i = 0; i < 5; i++) {
               this.addRandomAEvent();
@@ -78,16 +77,7 @@ export class AEvents11Service {
                 i++;
               }
               // this.aEvents = events ? events.map(o => AEvent.copyTrue(o)) : [];
-              this.aEvents.push(new AEvent(
-                events[i].id,
-                events[i].title,
-                events[i].status,
-                events[i].start,
-                events[i].end,
-                events[i].IsTicketed,
-                events[i].participationFee,
-                events[i].description,
-                events[i].maxParticipants));
+              this.aEvents.push(new AEvent(events[i].id, events[i].title, events[i].status, events[i].start, events[i].end, events[i].IsTicketed, events[i].participationFee, events[i].description, events[i].maxParticipants));
             }
 
           }
@@ -105,5 +95,14 @@ export class AEvents11Service {
           console.log("Ik zit in put: " + events);
         }
       )
+  }
+
+  saveAEvent(AEvent: AEvent) {
+    console.log(AEvent);
+    this.httpClient.post<AEvent>(this.URL_DATA, AEvent)
+      .subscribe(
+        data => console.log(data),
+        error => console.log(error)
+      );
   }
 }

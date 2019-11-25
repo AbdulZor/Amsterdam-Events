@@ -1,16 +1,16 @@
 export class AEvent {
   id: number;
   title: string;
-  status: AEventStatus;
+  status: string;
   start: Date;
-  IsTicketed: boolean;
   end: Date;
+  IsTicketed: boolean;
   participationFee: number;
   description: string;
   maxParticipants: number;
 
 
-  constructor(id?: number, title?: string, status?: AEventStatus, start?: Date,
+  constructor(id?: number, title?: string, status?: string, start?: Date,
               end?: Date, IsTicketed?: boolean, participationFee?: number, description?: string, maxParticipants?: number) {
     this.id = id;
     this.title = title;
@@ -23,15 +23,15 @@ export class AEvent {
     this.maxParticipants = maxParticipants;
   }
 
-  static getRandomStatus(): AEventStatus {
+  static getRandomStatus(): String {
     let statusCode: number;
     statusCode = Math.random();
     if (statusCode > 0.6) {
-      return AEventStatus.DRAFT;
+      return String.DRAFT;
     } else if (statusCode <= 0.6 && statusCode >= 0.2) {
-      return AEventStatus.PUBLISHED;
+      return String.PUBLISHED;
     }
-    return AEventStatus.CANCELED;
+    return String.CANCELED;
   }
 
   static getRandomIsTicketed(): boolean {
@@ -51,7 +51,7 @@ export class AEvent {
   }
 }
 
-export enum AEventStatus {
+export enum String {
   DRAFT = "DRAFT",
   PUBLISHED = "PUBLISHED",
   CANCELED = "CANCELED"
