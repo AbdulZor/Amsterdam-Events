@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AEvent} from "../models/a-event";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {SessionService} from "../services/session/session.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -86,6 +87,10 @@ export class AEvents11Service {
           console.log(error);
         }
       )
+  }
+
+  getAllAEvents2(): Observable<AEvent[]> {
+    return this.httpClient.get<AEvent[]>(this.URL_DATA);
   }
 
   saveAllAEvents() {

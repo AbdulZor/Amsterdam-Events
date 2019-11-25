@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AEvents11Service} from "../../../sevices2/a-events11.service";
 import {SessionService} from "../../../services/session/session.service";
+import {throws} from "assert";
 
 @Component({
   selector: 'app-overview11',
@@ -11,9 +12,11 @@ import {SessionService} from "../../../services/session/session.service";
   styleUrls: ['./overview11.component.css']
 })
 export class Overview11Component implements OnInit, OnDestroy {
-  aEvents: AEvent[];
-  selectedAEventIndex: number;
-  selectedEvent: AEvent;
+  private aEvents: AEvent[];
+  private selectedAEventIndex: number;
+  private selectedEvent: AEvent;
+
+  private events$: Observable<AEvent[]>;
 
   private subscriptionQueryParam: Subscription = null;
 
@@ -24,17 +27,30 @@ export class Overview11Component implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.aEvents = this.aEventService.aEvents;
-    console.log(this.aEventService.aEvents);
-    this.subscriptionQueryParam =
-      this.route.queryParams.subscribe(
-        (params: Params) => {
-          console.log("in overview id=" + params['id']);
-          this.selectedAEventIndex = params['id'];
-          this.selectedEvent = this.aEventService.getAEvents()[params['id']];
-          console.log("overview Index: " + this.selectedAEventIndex);
-        }
-      )
+    this.aEvents = [];
+    this.events$ = this.aEventService.getAllAEvents2();
+
+    this.aEventService.getAllAEvents2().subscribe(
+      (events: AEvent[]) => {
+        events.forEach(
+          (event: AEvent) => {
+            this.aEvents.push(event as AEvent);
+          }
+        );
+        this.subscriptionQueryParam =
+          this.route.queryParams.subscribe(
+            (params: Params) => {
+              console.log("in overview id=" + params['id']);
+              this.selectedAEventIndex = params['id'];
+              this.selectedEvent = this.aEvents[this.selectedAEventIndex];
+              // this.aEvents = this.aEventService.aEvents;
+            }
+          )
+      },
+      (error => throws(error, "There was an error getting the events from the API" + error))
+    );
+
+
   }
 
   ngOnDestroy(): void {

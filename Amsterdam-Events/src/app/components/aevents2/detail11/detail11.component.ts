@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AEvent} from "../../../models/a-event";
 import {NgForm} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {Aevents2Service} from "../../../services/aevents2.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {AEvents11Service} from "../../../sevices2/a-events11.service";
 
 @Component({
   selector: 'app-detail11',
@@ -17,15 +17,27 @@ export class Detail11Component implements OnInit, OnDestroy {
 
   private subscriptionQueryParam: Subscription = null;
 
-  constructor(private aEventService: Aevents2Service,
+  constructor(private aEventService: AEvents11Service,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    console.log(this.aEventService.getAEvents());
+    console.log("Halloooo: " + this.aEventService.getAEvents());
+    this.aEventService.getAllAEvents2().subscribe(
+      (events: AEvent[]) => {
+        events.forEach(
+          (event: AEvent, index: number, array: []) => {
+            if (index == this.route.snapshot.queryParams['id']){
+              return this.editedEvent = event as AEvent;
+            }
+          }
+        )
+      }
+    );
+
     this.editedEventId = this.route.snapshot.queryParams['id'];
-    this.editedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[this.editedEventId]);
+    this.editedEvent = AEvent.copyTrue(this.editedEvent);
 
     this.subscriptionQueryParam =
       this.route.queryParams.subscribe(
@@ -37,7 +49,7 @@ export class Detail11Component implements OnInit, OnDestroy {
           if (!this.checkChanges()) {
             if (this.confirmDiscardChanged()) {
               this.editedEventId = params['id'];
-              this.editedEvent = AEvent.copyTrue(this.aEventService.getAEvents()[this.editedEventId]);
+              this.editedEvent = AEvent.copyTrue(this.editedEvent);
               this.router.navigate([], {queryParams: {id: this.editedEventId}})
             } else {
               this.router.navigate([], {queryParams: {id: this.editedEventId}})
