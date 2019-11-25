@@ -8,5 +8,5 @@ public interface AEventsRepository {
     List<AEvent> findAll();
     AEvent findById(Long id);
     AEvent save(AEvent aEvent);
-    boolean deleteById(Long id);
+    AEvent deleteById(Long id);
 }

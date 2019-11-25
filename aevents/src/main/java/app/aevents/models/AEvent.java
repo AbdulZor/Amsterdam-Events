@@ -1,13 +1,23 @@
 package app.aevents.models;
 
+import app.aevents.views.AEventsView;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.Date;
 
 
 public class AEvent {
+    @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     private long id;
+
+    @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     private String title;
+
+    @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     private String status;
+
     private Date start;
+
     private Date end;
     private boolean isTicketed;
     private double participationFee;

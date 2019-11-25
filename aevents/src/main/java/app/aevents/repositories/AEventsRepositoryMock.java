@@ -47,17 +47,16 @@ public class AEventsRepositoryMock implements AEventsRepository {
     }
 
     @Override
-    public boolean deleteById(Long id) {
+    public AEvent deleteById(Long id) {
         boolean isValidId = AEvents.stream().anyMatch(aEvent -> aEvent.getId() == id);
         if (isValidId) {
             for (int i = 0; i < AEvents.size(); i++) {
                 if (AEvents.get(i).getId() == id) {
-                    AEvents.remove(i);
+                    return AEvents.remove(i);
                 }
             }
-            return true;
         }
-        return false;
+        return null;
     }
 
 

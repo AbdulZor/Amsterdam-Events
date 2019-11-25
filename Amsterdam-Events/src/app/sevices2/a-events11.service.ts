@@ -50,10 +50,10 @@ export class AEvents11Service {
   }
 
   addRandomAEvent() {
-    this.aEvents.push(new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
+    let aEvent = new AEvent(++this.j, "The fantastic event-" + this.j, AEvent.getRandomStatus(), this.randomDate(new Date(2019, 10, 1), new Date()),
       this.randomDate(new Date(2019, 10, 2), new Date()), AEvent.getRandomIsTicketed(),
-      +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed()));
-    this.saveAllAEvents();
+      +((Math.random() * 15).toFixed(2)), "NO DESCPRIPTION", +(Math.random() * 100).toFixed());
+    this.add(aEvent);
   }
 
   randomDate(start, end) {
@@ -63,7 +63,8 @@ export class AEvents11Service {
   getAllAEvents() {
     this.httpClient.get<AEvent[]>(this.URL_DATA)
       .subscribe(
-        (events: AEvent[]) => {;
+        (events: AEvent[]) => {
+          ;
           if (!events) {
             for (let i = 0; i < 5; i++) {
               this.addRandomAEvent();
@@ -98,7 +99,7 @@ export class AEvents11Service {
   }
 
   saveAllAEvents() {
-    this.httpClient.put<AEvent[]>(this.URL_DATA, this.aEvents)
+    this.httpClient.post<AEvent[]>(this.URL_DATA, this.aEvents)
       .subscribe(
         (events) => {
           console.log("Ik zit in put: " + events);
