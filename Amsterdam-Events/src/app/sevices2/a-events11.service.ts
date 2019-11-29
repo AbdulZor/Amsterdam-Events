@@ -17,7 +17,7 @@ export class AEvents11Service {
   constructor(private httpClient: HttpClient, private sessionService: SessionService) {
     this.j = 8;
     this.aEvents = [];
-    this.getAllAEvents();
+    // this.getAllAEvents();
   }
 
   getAEvents() {
@@ -62,7 +62,7 @@ export class AEvents11Service {
   }
 
   getAllAEvents() {
-    this.httpClient.get<AEvent[]>(this.URL_DATA)
+    return this.httpClient.get<AEvent[]>(this.URL_DATA)
       .subscribe(
         (events: AEvent[]) => {
           if (!events) {

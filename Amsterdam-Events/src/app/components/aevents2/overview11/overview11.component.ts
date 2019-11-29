@@ -30,23 +30,24 @@ export class Overview11Component implements OnInit, OnDestroy {
     this.aEvents = [];
     this.events$ = this.aEventService.getAllAEvents2();
 
-    this.aEventService.getAllAEvents2().subscribe(
-      (events: AEvent[]) => {
-        events.forEach(
-          (event: AEvent) => {
-            this.aEvents.push(event as AEvent);
-          }
-        );
-        this.subscriptionQueryParam =
-          this.route.queryParams.subscribe(
-            (params: Params) => {
-              this.selectedAEventIndex = params['id'];
-              this.selectedEvent = this.aEvents[this.selectedAEventIndex];
-            }
-          )
-      },
-      (error => throws(error, "There was an error getting the events from the API" + error))
-    );
+    this.aEventService.getAllAEvents();
+    // this.aEventService.getAllAEvents2().subscribe(
+    //   (events: AEvent[]) => {
+    //     events.forEach(
+    //       (event: AEvent) => {
+    //         // this.aEvents.push(event as AEvent);
+    //       }
+    //     );
+    //     this.subscriptionQueryParam =
+    //       this.route.queryParams.subscribe(
+    //         (params: Params) => {
+    //           this.selectedAEventIndex = params['id'];
+    //           this.selectedEvent = this.aEvents[this.selectedAEventIndex];
+    //         }
+    //       )
+    //   },
+    //   (error => throws(error, "There was an error getting the events from the API" + error))
+    // );
 
 
   }

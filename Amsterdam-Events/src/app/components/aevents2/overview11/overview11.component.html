@@ -8,7 +8,7 @@
         </tr>
         </thead>
         <tbody *ngIf="this.events$ | async">
-        <tr *ngFor="let event of aEvents; let i = index">
+        <tr *ngFor="let event of aEventService.getAEvents(); let i = index">
           <th *ngIf="event != null" (click)="setActive(i)"
               [ngClass]="i == selectedAEventIndex ? 'bg-info' : 'bg-light'">
             {{ event.title }}</th>
