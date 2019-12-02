@@ -5,6 +5,7 @@ import app.aevents.exceptions.RecsourceNotFoundException;
 import app.aevents.models.AEvent;
 import app.aevents.repositories.AEventsRepository;
 import app.aevents.views.AEventsView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequestMapping(value = "/aevents")
 public class AEventsController {
 
+    @Autowired
     private AEventsRepository aEventsRepository;
 
     public AEventsController(AEventsRepository aEventsRepository) {
@@ -33,7 +35,7 @@ public class AEventsController {
     }
 
     @GetMapping(path = "/{id}")
-    public AEvent getAEvent(@PathVariable("id") long id) {
+    public AEvent getAEvent(@PathVariable("id") Long id) {
         AEvent foundAEvent = aEventsRepository.findById(id);
         if (foundAEvent == null)
             throw new RecsourceNotFoundException("AEvent not found with id: " + id);
@@ -52,10 +54,10 @@ public class AEventsController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity updateAEvent(@RequestBody AEvent aEvent, @PathVariable("id") long id) {
+    public ResponseEntity updateAEvent(@RequestBody AEvent aEvent, @PathVariable("id") Long id) {
 
         AEvent aEvent1 = aEventsRepository.save(aEvent);
-        if (aEvent == null){
+        if (aEvent1 == null){
             throw new ForregistrationdenException("AEvent not found with id: " + id);
         }
         return ResponseEntity.created(
@@ -64,12 +66,9 @@ public class AEventsController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity deleteAEvent(@PathVariable("id") long id) {
+    public ResponseEntity deleteAEvent(@PathVariable("id") Long id) {
 
-        AEvent aEvent = aEventsRepository.deleteById(id);
-        if (aEvent == null) {
-            throw new RecsourceNotFoundException("AEvent not found with id: " + id);
-        }
+        aEventsRepository.deleteById(id);
         return ResponseEntity.ok(
                 ServletUriComponentsBuilder.fromCurrentRequest().path("").build().toUri()
         );

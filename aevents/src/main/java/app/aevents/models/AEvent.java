@@ -1,19 +1,26 @@
 package app.aevents.models;
 
+import app.aevents.models.helper.AEventsStatus;
 import app.aevents.views.AEventsView;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@NamedQuery(name = "find_all_aevents", query = "select ae from AEvent ae")
 public class AEvent {
     @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
-    private long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     private String title;
 
     @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
-    private String status;
+    @Enumerated(EnumType.ORDINAL)
+    private AEventsStatus status;
 
     private Date startDate;
 
@@ -23,9 +30,13 @@ public class AEvent {
     private String description;
     private int maxParticipants;
 
-    protected AEvent(){}
+    // helper
+    private static int userCount = 1;
 
-    public AEvent(long id, String title, String status, Date startDate, Date endDate, boolean isTicketed, double participationFee, String description, int maxParticipants) {
+    protected AEvent() {
+    }
+
+    public AEvent(long id, String title, AEventsStatus status, Date startDate, Date endDate, boolean isTicketed, double participationFee, String description, int maxParticipants) {
         this.id = id;
         this.title = title;
         this.status = status;
@@ -37,7 +48,18 @@ public class AEvent {
         this.maxParticipants = maxParticipants;
     }
 
-    public long getId() {
+    public AEvent(String title, AEventsStatus status, Date startDate, Date endDate, boolean isTicketed, double participationFee, String description, int maxParticipants) {
+        this.title = title;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isTicketed = isTicketed;
+        this.participationFee = participationFee;
+        this.description = description;
+        this.maxParticipants = maxParticipants;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -45,7 +67,7 @@ public class AEvent {
         return title;
     }
 
-    public String getStatus() {
+    public AEventsStatus getStatus() {
         return status;
     }
 
@@ -73,7 +95,7 @@ public class AEvent {
         return maxParticipants;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -81,7 +103,7 @@ public class AEvent {
         this.title = title;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(AEventsStatus status) {
         this.status = status;
     }
 
@@ -111,5 +133,22 @@ public class AEvent {
 
     public static boolean getRandomIsTicketed() {
         return Math.random() < 0.5;
+    }
+
+    public static AEventsStatus getRandomAEventsStatus() {
+        double statusCode = 0;
+        statusCode = Math.random();
+        if (statusCode > 0.6) {
+            return AEventsStatus.DRAFT;
+        } else if (statusCode <= 0.6 && statusCode >= 0.2) {
+            return AEventsStatus.PUBLISHED;
+        }
+        return AEventsStatus.CANCELED;
+    }
+
+    public static AEvent createRandomAEvent() {
+        return new AEvent("Aevent " + userCount++, AEvent.getRandomAEventsStatus(), new Date(), new Date(),
+                AEvent.getRandomIsTicketed(), Math.random() * 100, "Best event",
+                (int) (Math.random() * 10) + 1); // do +1 because there can be minimal 1 participants
     }
 }

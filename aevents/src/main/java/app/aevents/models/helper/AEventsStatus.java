@@ -1,5 +1,5 @@
 package app.aevents.models.helper;
 
-public class AEventsStatus {
-
+public enum AEventsStatus {
+    PUBLISHED, DRAFT, CANCELED
 }

@@ -1,6 +1,7 @@
 package app.aevents.repositories;
 
 import app.aevents.models.AEvent;
+import app.aevents.models.helper.AEventsStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class AEventsRepositoryMock implements AEventsRepository {
     public AEventsRepositoryMock() {
         this.AEvents = new ArrayList<>();
         for (int i = 1; i < 8; i++) {
-            this.AEvents.add(new AEvent(i, "Aevent " + i, "PUBLISHED", new Date(), new Date(),
+            this.AEvents.add(new AEvent(i, "Aevent " + i, AEvent.getRandomAEventsStatus(), new Date(), new Date(),
                     AEvent.getRandomIsTicketed(), Math.random() * 100, "Best event",
                     (int) (Math.random() * 10)));
         }
@@ -47,16 +48,15 @@ public class AEventsRepositoryMock implements AEventsRepository {
     }
 
     @Override
-    public AEvent deleteById(Long id) {
+    public void deleteById(Long id) {
         boolean isValidId = AEvents.stream().anyMatch(aEvent -> aEvent.getId() == id);
         if (isValidId) {
             for (int i = 0; i < AEvents.size(); i++) {
-                if (AEvents.get(i).getId() == id) {
-                    return AEvents.remove(i);
+                if (AEvents.get(i).getId().equals(id)) {
+                    AEvents.remove(i);
                 }
             }
         }
-        return null;
     }
 
 
