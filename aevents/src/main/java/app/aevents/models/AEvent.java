@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Date;
 
-
 public class AEvent {
     @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     private long id;
@@ -16,20 +15,22 @@ public class AEvent {
     @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     private String status;
 
-    private Date start;
+    private Date startDate;
 
-    private Date end;
+    private Date endDate;
     private boolean isTicketed;
     private double participationFee;
     private String description;
     private int maxParticipants;
 
-    public AEvent(long id, String title, String status, Date start, Date end, boolean isTicketed, double participationFee, String description, int maxParticipants) {
+    protected AEvent(){}
+
+    public AEvent(long id, String title, String status, Date startDate, Date endDate, boolean isTicketed, double participationFee, String description, int maxParticipants) {
         this.id = id;
         this.title = title;
         this.status = status;
-        this.start = start;
-        this.end = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.isTicketed = isTicketed;
         this.participationFee = participationFee;
         this.description = description;
@@ -48,12 +49,12 @@ public class AEvent {
         return status;
     }
 
-    public Date getStart() {
-        return start;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getEndDate() {
+        return endDate;
     }
 
     public boolean isTicketed() {
@@ -84,12 +85,12 @@ public class AEvent {
         this.status = status;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStartDate(Date start) {
+        this.startDate = start;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setEndDate(Date end) {
+        this.endDate = end;
     }
 
     public void setTicketed(boolean ticketed) {

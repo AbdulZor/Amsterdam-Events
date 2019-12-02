@@ -1,17 +1,17 @@
 package app.aevents.repositories;
 
 import app.aevents.models.AEvent;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Component
+@Repository
 public class AEventsRepositoryMock implements AEventsRepository {
     private List<AEvent> AEvents;
 
-    private static int usersCount = 8;
+//    private static int usersCount = 8;
 
     public AEventsRepositoryMock() {
         this.AEvents = new ArrayList<>();
