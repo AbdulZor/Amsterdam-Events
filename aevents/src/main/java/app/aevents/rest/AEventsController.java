@@ -2,7 +2,10 @@ package app.aevents.rest;
 
 import app.aevents.exceptions.ForregistrationdenException;
 import app.aevents.exceptions.RecsourceNotFoundException;
+import app.aevents.exceptions.StatusException;
 import app.aevents.models.AEvent;
+import app.aevents.models.Registration;
+import app.aevents.models.helper.AEventsStatus;
 import app.aevents.repositories.AEventsRepository;
 import app.aevents.views.AEventsView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,7 @@ public class AEventsController {
         List<AEvent> aEvents = aEventsRepository.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(aEvents);
-        mappingJacksonValue.setSerializationView(AEventsView.AEventOnlyIdTitleStat.class);
+//        mappingJacksonValue.setSerializationView(AEventsView.AEventOnlyIdTitleStat.class);
         return mappingJacksonValue;
     }
 
@@ -43,7 +46,7 @@ public class AEventsController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity saveAEvent(@RequestBody AEvent aEvent) {
+    public ResponseEntity<AEvent> saveAEvent(@RequestBody AEvent aEvent) {
         AEvent savedAEvent = aEventsRepository.save(aEvent);
 
         // Return a server response
@@ -54,10 +57,10 @@ public class AEventsController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity updateAEvent(@RequestBody AEvent aEvent, @PathVariable("id") Long id) {
+    public ResponseEntity<AEvent> updateAEvent(@RequestBody AEvent aEvent, @PathVariable("id") Long id) {
 
         AEvent aEvent1 = aEventsRepository.save(aEvent);
-        if (aEvent1 == null){
+        if (aEvent1 == null) {
             throw new ForregistrationdenException("AEvent not found with id: " + id);
         }
         return ResponseEntity.created(
@@ -66,12 +69,23 @@ public class AEventsController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity deleteAEvent(@PathVariable("id") Long id) {
+    public ResponseEntity<URI> deleteAEvent(@PathVariable("id") Long id) {
 
         aEventsRepository.deleteById(id);
         return ResponseEntity.ok(
                 ServletUriComponentsBuilder.fromCurrentRequest().path("").build().toUri()
         );
+    }
+
+    //Register endpoints
+
+    @PostMapping(path = "/{id}/register")
+    public ResponseEntity<AEvent> addRegistration(@PathVariable("id") Long id, @RequestBody Registration registration) throws Exception {
+        AEvent aEvent = aEventsRepository.findById(id);
+        aEvent.addRegistration(registration);
+        return ResponseEntity.created(
+                ServletUriComponentsBuilder.fromCurrentRequest().path("").build().toUri()
+        ).body(aEvent);
     }
 
 }
