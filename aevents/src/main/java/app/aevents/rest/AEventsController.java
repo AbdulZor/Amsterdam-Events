@@ -7,6 +7,7 @@ import app.aevents.models.AEvent;
 import app.aevents.models.Registration;
 import app.aevents.models.helper.AEventsStatus;
 import app.aevents.repositories.AEventsRepository;
+import app.aevents.repositories.EntityRepository;
 import app.aevents.views.AEventsView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,9 @@ import java.util.List;
 public class AEventsController {
 
     @Autowired
-    private AEventsRepository aEventsRepository;
+    private EntityRepository<AEvent> aEventsRepository;
 
-    public AEventsController(AEventsRepository aEventsRepository) {
+    public AEventsController(EntityRepository<AEvent> aEventsRepository) {
         this.aEventsRepository = aEventsRepository;
     }
 
@@ -80,7 +81,7 @@ public class AEventsController {
     //Register endpoints
 
     @PostMapping(path = "/{id}/register")
-    public ResponseEntity<AEvent> addRegistration(@PathVariable("id") Long id, @RequestBody Registration registration) throws Exception {
+    public ResponseEntity<AEvent> addRegistration(@PathVariable("id") Long id, @RequestBody Registration registration) {
         AEvent aEvent = aEventsRepository.findById(id);
         aEvent.addRegistration(registration);
         return ResponseEntity.created(

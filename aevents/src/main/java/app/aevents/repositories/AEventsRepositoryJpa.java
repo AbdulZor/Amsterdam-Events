@@ -10,13 +10,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Repository("AEVENTS.JPA")
 @Primary
 @Transactional
-public class AEventsRepositoryJpa implements AEventsRepository {
+public class AEventsRepositoryJpa extends AbstractEntityRepositoryJpa<AEvent> {
 
     @Autowired
     EntityManager em;
+
+    public AEventsRepositoryJpa() {
+        super(AEvent.class);
+    }
 
     @Override
     public List<AEvent> findAll() {
@@ -40,8 +44,12 @@ public class AEventsRepositoryJpa implements AEventsRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         AEvent aEvent = findById(id);
+        if (aEvent == null){
+            return false;
+        }
         em.remove(aEvent);
+        return true;
     }
 }

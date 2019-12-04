@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @NamedQuery(name = "find_all_aevents", query = "select ae from AEvent ae")
-public class AEvent {
+public class AEvent implements Identifiable{
     //    @JsonView(AEventsView.AEventOnlyIdTitleStat.class)
     @Id
     @GeneratedValue

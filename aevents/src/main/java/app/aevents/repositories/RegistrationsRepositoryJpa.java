@@ -11,13 +11,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository
+@Repository("REGISTRATIONS.JPA")
 @Primary
 @Transactional
-public class RegistrationsRepositoryJpa implements RegistrationsRepository {
+public class RegistrationsRepositoryJpa extends AbstractEntityRepositoryJpa<Registration> {
 
     @Autowired
     EntityManager em;
+
+    public RegistrationsRepositoryJpa() {
+        super(Registration.class);
+    }
 
     @Override
     public List<Registration> findAll() {
@@ -41,8 +45,13 @@ public class RegistrationsRepositoryJpa implements RegistrationsRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         Registration registration = findById(id);
+        if (registration == null) {
+            return false;
+        }
         em.remove(registration);
+        return true;
+
     }
 }

@@ -5,6 +5,7 @@ import app.aevents.models.AEvent;
 import app.aevents.models.Registration;
 import app.aevents.models.helper.AEventsStatus;
 import app.aevents.repositories.AEventsRepository;
+import app.aevents.repositories.EntityRepository;
 import app.aevents.repositories.RegistrationsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,10 @@ import java.util.List;
 public class AeventsApplication implements CommandLineRunner {
 
     @Autowired
-    private AEventsRepository aEventsRepository;
+    private EntityRepository<AEvent> aEventsRepository;
 
     @Autowired
-    private RegistrationsRepository registrationsRepository;
+    private EntityRepository<Registration> registrationsRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(AeventsApplication.class);
 

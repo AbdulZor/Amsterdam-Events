@@ -1,7 +1,6 @@
 package app.aevents.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.util.Objects;
 @NamedQueries(value = {
         @NamedQuery(name = "find_all_registrations", query = "select r from Registration r")
 })
-public class Registration {
+public class Registration implements Identifiable{
     @Id
     @GeneratedValue
     private Long id;
